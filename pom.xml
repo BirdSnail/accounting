@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.birdsnail</groupId>
-    <artifactId>accouting</artifactId>
+    <artifactId>accounting</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>accouting</name>
+    <name>accounting</name>
     <description>一个记账系统后端</description>
 
     <properties>
