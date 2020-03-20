@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:mysql://bear:3310/hardcore_test?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: yhd19941108
