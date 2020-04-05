@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.security.InvalidParameterException;
+
 /**
  * @author BirdSnail
  * @date 2020/3/17
@@ -32,6 +34,17 @@ public class GlobalExceptionHandler {
                         .errorMessage(ex.getMessage())
                         .errorType(ServiceException.ErrorType.CLIENT)
                         .errorCode("INCORRECT CREDENTIALS")
+                        .build());
+    }
+
+    @ExceptionHandler(InvalidParameterException.class)
+    public ResponseEntity<?> handleIncorrectCredentialsException(InvalidParameterException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ErrorResponse.builder()
+                        .statusCode(400)
+                        .errorMessage(ex.getMessage())
+                        .errorType(ServiceException.ErrorType.CLIENT)
+                        .errorCode("invalid parameter")
                         .build());
     }
 
