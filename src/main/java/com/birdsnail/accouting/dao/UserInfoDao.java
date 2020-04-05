@@ -16,6 +16,13 @@ public interface UserInfoDao {
     UserInfo getUserInfoByUsername(String username);
 
     /**
+     * get user by id
+     * @param id user id
+     * @return user in persistence
+     */
+    UserInfo getUserInfoByUserId(long id);
+
+    /**
      * 创建一个新的用户，实现用户的注册
      * @param userInfo a new user
      */

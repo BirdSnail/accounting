@@ -43,6 +43,13 @@ public class UserInfoManagerImpl implements UserInfoManager {
     }
 
     @Override
+    public UserInfoCommon getUserInfoByUserId(long id) {
+        UserInfo userInfo = Optional.ofNullable(userInfoDao.getUserInfoByUserId(id))
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("User %s was not found", id)));
+        return userInfoP2CConverter.convert(userInfo);
+    }
+
+    @Override
     public void login(String username, String password) {
         // 1. 收集用户名和密码
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -64,7 +71,7 @@ public class UserInfoManagerImpl implements UserInfoManager {
         final UserInfo userInfo = UserInfo.builder()
                 .username(username)
                 .password(encryptionPassWord)
-                .sale(salt)
+                .salt(salt)
                 .createTime(LocalDateTime.now())
                 .build();
         userInfoDao.createNewUser(userInfo);

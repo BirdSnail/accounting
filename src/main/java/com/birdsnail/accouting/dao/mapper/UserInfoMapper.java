@@ -25,6 +25,14 @@ public interface UserInfoMapper {
     UserInfo getUserInfoByUsername(@Param("username") String username);
 
     /**
+     * get user object by username
+     * @param id id of user
+     * @return {@link UserInfo} object
+     */
+    @Select("select id, username, password, sale, create_time, update_time from hcas_userinfo where id =#{id}")
+    UserInfo getUserInfoByUserId(@Param("id") long id);
+
+    /**
      * create new user
      * @param userInfo user
      */

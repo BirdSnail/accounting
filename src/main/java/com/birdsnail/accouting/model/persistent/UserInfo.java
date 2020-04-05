@@ -20,7 +20,7 @@ public class UserInfo {
     private long id;
     private String username;
     private String password;
-    private String sale;
+    private String salt;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 

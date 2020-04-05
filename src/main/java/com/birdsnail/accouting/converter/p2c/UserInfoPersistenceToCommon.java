@@ -17,7 +17,7 @@ public class UserInfoPersistenceToCommon extends Converter<UserInfo, UserInfoCom
         return UserInfoCommon.builder()
                 .name(userInfo.getUsername())
                 .passWord(userInfo.getPassword())
-                .salt(userInfo.getSale())
+                .salt(userInfo.getSalt())
                 .userId(userInfo.getId())
                 .build();
     }

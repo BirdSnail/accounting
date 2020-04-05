@@ -25,6 +25,11 @@ public class UserInfoDapImpl implements UserInfoDao {
     }
 
     @Override
+    public UserInfo getUserInfoByUserId(long id) {
+        return userInfoMapper.getUserInfoByUserId(id);
+    }
+
+    @Override
     public void createNewUser(UserInfo userInfo) {
         userInfoMapper.createNewUser(userInfo);
     }
