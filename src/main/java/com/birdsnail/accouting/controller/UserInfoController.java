@@ -2,11 +2,12 @@ package com.birdsnail.accouting.controller;
 
 import com.birdsnail.accouting.manager.UserInfoManager;
 import com.birdsnail.accouting.model.common.UserInfoCommon;
+import com.birdsnail.accouting.model.service.UserInfoView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.InvalidParameterException;
-import java.util.Objects;
+
 
 /**
  * @author BirdSnail
@@ -23,17 +24,17 @@ public class UserInfoController {
         this.userInfoManager = userInfoManager;
     }
 
-    @PostMapping
-    public UserInfoCommon register(@RequestParam("username") String username,
-                                   @RequestParam("password") String password) {
-        return userInfoManager.register(username, password);
+    @PostMapping(produces = "application/json", consumes = "application/json")
+    public UserInfoCommon register(@RequestBody UserInfoView userInfoView) {
+        return userInfoManager.register(userInfoView.getUsername(), userInfoView.getPassWord());
     }
 
     @GetMapping("/{id}")
     public UserInfoCommon getUserInfoByUserId(@PathVariable("id") long id) {
-        if ( id <= 0L) {
+        if (id <= 0L) {
             throw new InvalidParameterException(String.format("the user id: %s is invalid", id));
         }
         return userInfoManager.getUserInfoByUserId(id);
     }
+
 }

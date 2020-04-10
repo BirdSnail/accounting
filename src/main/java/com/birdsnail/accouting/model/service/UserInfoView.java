@@ -1,5 +1,6 @@
 package com.birdsnail.accouting.model.service;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,10 +14,12 @@ import lombok.Data;
  */
 @Data
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 public class UserInfoView {
 
     private long userId;
-    private String name;
+    private String username;
+    private String passWord;
 
 }
