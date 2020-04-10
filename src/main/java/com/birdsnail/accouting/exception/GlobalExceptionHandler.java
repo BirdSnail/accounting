@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
                         .statusCode(ex.getStatusCode())
                         .errorMessage(ex.getMessage())
                         .errorType(ex.getErrorType())
-                        .errorCode("传入参数不对")
+                        .errorCode(ex.getErrorCode())
                         .build());
     }
 
@@ -33,18 +33,18 @@ public class GlobalExceptionHandler {
                         .statusCode(406)
                         .errorMessage(ex.getMessage())
                         .errorType(ServiceException.ErrorType.CLIENT)
-                        .errorCode("INCORRECT CREDENTIALS")
+                        .errorCode(CustomErrorCode.INCORRECT_CREDENTIALS)
                         .build());
     }
 
     @ExceptionHandler(InvalidParameterException.class)
-    public ResponseEntity<?> handleIncorrectCredentialsException(InvalidParameterException ex){
+    public ResponseEntity<?> handleInvalidParameterException(InvalidParameterException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ErrorResponse.builder()
                         .statusCode(400)
                         .errorMessage(ex.getMessage())
                         .errorType(ServiceException.ErrorType.CLIENT)
-                        .errorCode("invalid parameter")
+                        .errorCode(CustomErrorCode.INVALID_PARAMETER)
                         .build());
     }
 

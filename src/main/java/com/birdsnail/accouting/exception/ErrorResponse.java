@@ -11,9 +11,24 @@ import lombok.Data;
 @Builder
 public class ErrorResponse {
 
+    /**
+     * 状态码
+     */
     private int statusCode;
+
+    /**
+     * 错误信息
+     */
     private String errorMessage;
-    private String errorCode;
+
+    /**
+     * 自定义的错误码
+     */
+    private CustomErrorCode errorCode;
+
+    /**
+     * error发生在哪一边
+     */
     private ServiceException.ErrorType errorType;
 
 }

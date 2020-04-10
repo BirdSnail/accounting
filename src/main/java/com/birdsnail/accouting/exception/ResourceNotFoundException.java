@@ -14,5 +14,6 @@ public class ResourceNotFoundException extends ServiceException{
         super(message);
         this.setStatusCode(HttpStatus.BAD_REQUEST.value());
         this.setErrorType(ErrorType.CLIENT);
+        this.setErrorCode(CustomErrorCode.RESOURCE_NOT_FOUND);
     }
 }

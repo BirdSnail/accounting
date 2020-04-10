@@ -1,6 +1,7 @@
 package com.birdsnail.accouting.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -10,12 +11,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author yanghuadong
  * @date 2020-03-17
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
 public class ServiceException extends RuntimeException {
 
     private int statusCode;
-    private String errorCode;
+    private CustomErrorCode errorCode;
     private ErrorType errorType;
 
 
