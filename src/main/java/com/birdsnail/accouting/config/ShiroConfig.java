@@ -8,7 +8,9 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static com.birdsnail.accouting.manager.UserInfoManagerImpl.HASH_ITERATIONS;
 
@@ -28,7 +30,7 @@ public class ShiroConfig {
 
     /**
      * shiro filter . 实现权限相关的拦截
-     *
+     * <p>
      * anon: 无需认证就可以访问
      * authc: 要求登陆才可以访问
      * user: remember me -> access
@@ -39,12 +41,14 @@ public class ShiroConfig {
      */
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
-        final ShiroFilterFactoryBean shiroFilterFactory = new ShiroFilterFactoryBean();
+        final ShiroFilterFactoryBean shiroFilterFactory = new HttpMethodShiroFilterFactoryBean();
         shiroFilterFactory.setSecurityManager(securityManager);
+        Map<String, Filter> filters = shiroFilterFactory.getFilters();
+        filters.put("authc", new OnAccessDeniedFormAuthenticationFilter());
 
         LinkedHashMap<String, String> shiroFilterDefinitionMap = new LinkedHashMap<>();
         shiroFilterDefinitionMap.put("/v1.0/session", "anon");
-        shiroFilterDefinitionMap.put("/v1.0/users", "anon");
+        shiroFilterDefinitionMap.put("/v1.0/users/**::POST", "anon");
         shiroFilterDefinitionMap.put("/**", "authc");
         shiroFilterFactory.setFilterChainDefinitionMap(shiroFilterDefinitionMap);
 
@@ -54,6 +58,7 @@ public class ShiroConfig {
 
     /**
      * 对加密密码进行匹配，用于登录的时候验证密码
+     *
      * @return credential matcher
      */
     @Bean
