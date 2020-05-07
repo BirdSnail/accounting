@@ -36,6 +36,7 @@ public interface UserInfoMapper {
      * create new user
      * @param userInfo user
      */
-    @Insert("INSERT INTO hcas_userinfo(username, password, sale, create_time) VALUES(#{username}, #{password}, #{salt}, #{createTime})")
+    @Insert("INSERT INTO hcas_userinfo(username, password, sale, create_time) " +
+            "VALUES(#{username}, #{password}, #{salt}, #{createTime})")
     void createNewUser(UserInfo userInfo);
 }
