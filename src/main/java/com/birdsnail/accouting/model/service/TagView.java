@@ -19,7 +19,7 @@ public class TagView {
     /**
      * tag id
      */
-    private long id;
+    private Long id;
 
     /**
      * 标签内容
@@ -29,7 +29,7 @@ public class TagView {
     /**
      * 创建该标签的用户id
      */
-    private long userId;
+    private Long userId;
 
     /**
      * 数据状态

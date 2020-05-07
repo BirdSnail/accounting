@@ -18,7 +18,7 @@ public class TagCommon {
     /**
      * tag id
      */
-    private long id;
+    private Long id;
 
     /**
      * 标签内容
@@ -28,12 +28,12 @@ public class TagCommon {
     /**
      * 创建该标签的用户id
      */
-    private long userId;
+    private Long userId;
 
     /**
      * 数据状态
      * 0 -> disable，1 -> enable
      */
-    private int status;
+    private String status;
 
 }
