@@ -1,6 +1,5 @@
 package com.birdsnail.accouting.model.service;
 
-import com.birdsnail.accouting.model.persistent.TagPersistent;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,5 +48,5 @@ public class RecordView {
     /**
      * 包含的标签
      */
-    private List<TagPersistent> tagList;
+    private List<TagView> tagList;
 }

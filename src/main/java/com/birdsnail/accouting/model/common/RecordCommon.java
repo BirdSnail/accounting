@@ -1,6 +1,5 @@
 package com.birdsnail.accouting.model.common;
 
-import com.birdsnail.accouting.model.persistent.TagPersistent;
 import lombok.Builder;
 import lombok.Data;
 
@@ -47,6 +46,6 @@ public class RecordCommon {
     /**
      * 包含的标签
      */
-    private List<TagPersistent> tagList;
+    private List<TagCommon> tagList;
 
 }
