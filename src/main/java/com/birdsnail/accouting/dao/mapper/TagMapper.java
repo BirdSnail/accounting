@@ -4,6 +4,8 @@ import com.birdsnail.accouting.dao.provider.TagSqlProvider;
 import com.birdsnail.accouting.model.persistent.TagPersistent;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
  * @author BirdSnail
  */
@@ -42,7 +44,7 @@ public interface TagMapper {
      * 标签内容和用户id查询tag
      *
      * @param description tag description
-     * @param userId user id
+     * @param userId      user id
      * @return tag in persistent
      */
     @Select("select id, description, status, user_id, create_time, update_time FROM accounting_tag " +
@@ -66,4 +68,19 @@ public interface TagMapper {
     @UpdateProvider(type = TagSqlProvider.class, method = "updateTag")
     @Options(resultSets = "id, description, status, user_id, create_time, update_time")
     int updateTag(TagPersistent updateTag);
+
+    /**
+     * 批量获取tag
+     *
+     * @param ids list of tag id
+     * @return list of tag in persistent
+     */
+    @SelectProvider(type = TagSqlProvider.class, method = "getTagListByIds")
+    @Results(value = {
+            @Result(column = "id", property = "id"),
+            @Result(column = "description", property = "description"),
+            @Result(column = "status", property = "status"),
+            @Result(column = "user_id", property = "userId"),
+    })
+    List<TagPersistent> getTagListByIds(List<Long> ids);
 }

@@ -2,6 +2,8 @@ package com.birdsnail.accouting.dao;
 
 import com.birdsnail.accouting.model.persistent.TagPersistent;
 
+import java.util.List;
+
 /**
  * @author BirdSnail
  */
@@ -37,4 +39,12 @@ public interface TagDao {
      * @return tag in persistent
      */
     TagPersistent getTagByTagId(long tagId);
+
+    /**
+     * 对tagId进行批量查询
+     *
+     * @param ids tag id集合
+     * @return tag in persistent
+     */
+    List<TagPersistent> getTagListByIds(List<Long> ids);
 }
