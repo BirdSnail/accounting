@@ -10,7 +10,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ import java.util.UUID;
  * @author BirdSnail
  * @date 2020/3/17
  */
-@Component
+@Service
 public class UserInfoManagerImpl implements UserInfoManager {
 
     public static final int HASH_ITERATIONS = 10;

@@ -6,7 +6,7 @@ import com.birdsnail.accouting.exception.ResourceNotFoundException;
 import com.birdsnail.accouting.model.common.TagCommon;
 import com.birdsnail.accouting.model.persistent.TagPersistent;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
 import java.util.Optional;
@@ -15,7 +15,7 @@ import java.util.Optional;
  * @author BirdSnail
  * @date 2020/4/20
  */
-@Component
+@Service
 @Slf4j
 public class TagManagerImpl implements TagManager {
 
