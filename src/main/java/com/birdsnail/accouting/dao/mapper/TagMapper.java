@@ -76,11 +76,12 @@ public interface TagMapper {
      * @return list of tag in persistent
      */
     @SelectProvider(type = TagSqlProvider.class, method = "getTagListByIds")
-    @Results(value = {
-            @Result(column = "id", property = "id"),
-            @Result(column = "description", property = "description"),
-            @Result(column = "status", property = "status"),
-            @Result(column = "user_id", property = "userId"),
-    })
+    @Results(id = "tagMapping",
+            value = {
+                    @Result(column = "id", property = "id"),
+                    @Result(column = "description", property = "description"),
+                    @Result(column = "status", property = "status"),
+                    @Result(column = "user_id", property = "userId"),
+            })
     List<TagPersistent> getTagListByIds(List<Long> ids);
 }
