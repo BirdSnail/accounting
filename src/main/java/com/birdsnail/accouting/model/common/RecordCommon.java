@@ -19,9 +19,9 @@ public class RecordCommon {
     private Long id;
 
     /**
-     * 数据状态。0 -> disable, 1 -> enable
+     * 数据状态：DISABLE/ENABLE
      */
-    private Integer status;
+    private String status;
 
     /**
      * 所属用户的用户id
@@ -31,10 +31,10 @@ public class RecordCommon {
     /**
      * 类别 ： 收入 or 支出
      */
-    private Integer category;
+    private String category;
 
     /**
-     * 收入/支出 金额
+     * 金额
      */
     private BigDecimal amount;
 

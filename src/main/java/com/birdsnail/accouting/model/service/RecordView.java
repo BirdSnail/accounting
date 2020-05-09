@@ -33,7 +33,7 @@ public class RecordView {
     /**
      * 类别 ： 收入 or 支出
      */
-    private Integer category;
+    private String category;
 
     /**
      * 收入/支出 金额
