@@ -1,7 +1,6 @@
 package com.birdsnail.accouting.converter.c2s;
 
 
-import com.birdsnail.accouting.controller.TagController;
 import com.birdsnail.accouting.model.common.TagCommon;
 import com.birdsnail.accouting.model.service.TagView;
 import com.google.common.base.Converter;
@@ -20,22 +19,17 @@ public class TagCommon2ServerConverter extends Converter<TagCommon, TagView> {
                 .id(tagCommon.getId())
                 .description(tagCommon.getDescription())
                 .userId(tagCommon.getUserId())
-                .status(tagCommon.getStatus() == 1 ? TagController.ENABLE : TagController.DISABLE)
+                .status(tagCommon.getStatus())
                 .build();
     }
 
     @Override
     protected TagCommon doBackward(TagView tagView) {
-        final TagCommon tagCommon = TagCommon.builder()
+        return TagCommon.builder()
                 .id(tagView.getId())
                 .userId(tagView.getUserId())
-                .status(1)
+                .status(tagView.getStatus())
                 .description(tagView.getDescription())
                 .build();
-
-        if (tagView.getStatus() != null) {
-            tagCommon.setStatus(tagView.getStatus().equals(TagController.DISABLE) ? 0 : 1);
-        }
-        return tagCommon;
     }
 }

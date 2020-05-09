@@ -12,13 +12,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class TagPersistent2CommonConvert extends Converter<TagPersistent, TagCommon> {
 
+    public static final String ENABLE = "ENABLE";
+    public static final String DISABLE = "DISABLE";
+
     @Override
     protected TagCommon doForward(TagPersistent tagPersistent) {
         return TagCommon.builder()
                 .id(tagPersistent.getId())
                 .description(tagPersistent.getDescription())
                 .userId(tagPersistent.getUserId())
-                .status(tagPersistent.getStatus())
+                .status(1 == tagPersistent.getStatus() ? ENABLE : DISABLE)
                 .build();
     }
 
@@ -28,7 +31,7 @@ public class TagPersistent2CommonConvert extends Converter<TagPersistent, TagCom
                 .userId(tagCommon.getUserId())
                 .description(tagCommon.getDescription())
                 .id(tagCommon.getId())
-                .status(tagCommon.getStatus())
+                .status(ENABLE.equals(tagCommon.getStatus()) ? 1 : 0)
                 .build();
     }
 

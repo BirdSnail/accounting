@@ -4,7 +4,7 @@ import com.birdsnail.accouting.dao.mapper.TagMapper;
 import com.birdsnail.accouting.model.persistent.TagPersistent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @author BirdSnail
  * @date 2020/4/20
  */
-@Component
+@Repository
 @Slf4j
 public class TagDaoImpl implements TagDao {
 

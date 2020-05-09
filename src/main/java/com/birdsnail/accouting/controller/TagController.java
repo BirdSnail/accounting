@@ -53,7 +53,7 @@ public class TagController {
         }
 
         TagCommon result = tagManager.createTag(tag.getDescription(), tag.getUserId());
-        result.setStatus(1);
+        result.setStatus(ENABLE);
         log.debug("创建的tag in common:{}", result);
         return tagCommon2ServerConverter.convert(result);
     }
