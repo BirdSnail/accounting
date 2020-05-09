@@ -25,7 +25,7 @@ public interface RecordMapper {
     void insertRecord(RecordPersistent record);
 
     /**
-     * 查询record 通过 id
+     * 通过 id 查询record
      *
      * @param recordId record id
      * @return {@link RecordPersistent}
@@ -38,7 +38,8 @@ public interface RecordMapper {
             @Result(column = "user_id", property = "userId"),
             @Result(column = "category", property = "category"),
             @Result(column = "note", property = "note"),
-//            @Result(column = "id", property = "tagList", javaType = List.class, many = @Many(select = ""))
-    })
+            @Result(column = "id", property = "tagList", javaType = List.class,
+                    many = @Many(select = "com.birdsnail.accouting.dao.mapper." +
+                            "RecordTagMappingMapper.getTagListByRecordId"))})
     RecordPersistent getRecordById(@Param("id") Long recordId);
 }

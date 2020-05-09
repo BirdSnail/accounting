@@ -3,10 +3,7 @@ package com.birdsnail.accouting.dao.mapper;
 
 import com.birdsnail.accouting.model.persistent.RecordTagMapping;
 import com.birdsnail.accouting.model.persistent.TagPersistent;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -45,5 +42,6 @@ public interface RecordTagMappingMapper {
     @Select("SELECT tag.id, tag.description, tag.status, tag.user_id FROM accounting_tag tag"
             + "JOIN accounting_record_tag_mapping record_tag_map"
             + "ON tag.id = record_tag_map.tag_id WHERE record_tag_map.record_id = #{recordId}")
+    @ResultMap("tagMapping")
     List<TagPersistent> getTagListByRecordId(@Param("recordId") Long recordId);
 }

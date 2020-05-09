@@ -27,7 +27,7 @@ public class RecordTagMappingDaoImpl implements RecordTagMappingDao {
 
     @Override
     public void batchInsert(Long recordId, List<TagPersistent> tagPersistentList) {
-        List<RecordTagMapping> recordTagMappings = tagPersistentList.stream()
+        List<RecordTagMapping> recordTagMappingList = tagPersistentList.stream()
                 .map(tag -> RecordTagMapping.builder()
                         .recordId(recordId)
                         .tagId(tag.getId())
@@ -35,7 +35,7 @@ public class RecordTagMappingDaoImpl implements RecordTagMappingDao {
                         .build())
                 .collect(Collectors.toList());
 
-        int rowsCount = recordTagMappingMapper.batchInsert(recordTagMappings);
+        int rowsCount = recordTagMappingMapper.batchInsert(recordTagMappingList);
         log.debug("batch insert rows count:{}", rowsCount);
     }
 }
