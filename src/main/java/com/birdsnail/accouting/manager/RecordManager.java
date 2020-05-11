@@ -11,6 +11,7 @@ public interface RecordManager {
 
     /**
      * create a new record.
+     *
      * @param record 前端传入的Record
      * @return record in common
      */
@@ -18,9 +19,16 @@ public interface RecordManager {
 
     /**
      * 对指定recordId进行查找并返回
+     *
      * @param recordId record id
      * @return record in common
      */
     RecordCommon getRecordByRecordId(Long recordId);
 
+    /**
+     *
+     * @param recordCommon
+     * @return
+     */
+    RecordCommon updateRecord(RecordCommon recordCommon);
 }

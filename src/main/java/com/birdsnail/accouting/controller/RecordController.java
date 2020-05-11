@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.security.InvalidParameterException;
 import java.util.Objects;
 
+import static com.birdsnail.accouting.converter.p2c.RecordPersistent2CommonConverter.ENABLE;
+
 /**
  * 实现的功能:
  * 1. 创建一条新的record。
@@ -20,16 +22,16 @@ import java.util.Objects;
  * @date 2020/5/7
  */
 @RestController
-@RequestMapping("v1.0/record")
+@RequestMapping("v1.0/records")
 public class RecordController {
 
     private RecordManager recordManager;
-    private RecordCommon2ServerConverter c2sConverter;
+    private RecordCommon2ServerConverter recordC2S_Converter;
 
     @Autowired
     public RecordController(RecordManager recordManager) {
         this.recordManager = recordManager;
-        c2sConverter = new RecordCommon2ServerConverter();
+        recordC2S_Converter = new RecordCommon2ServerConverter();
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
@@ -38,9 +40,13 @@ public class RecordController {
             throw new InvalidParameterException("要被创建的record是无效的");
         }
 
-        RecordCommon recordCommon = c2sConverter.reverse().convert(record);
+        RecordCommon recordCommon = recordC2S_Converter.reverse().convert(record);
+        if (recordCommon == null) {
+            throw new InvalidParameterException("Record不符合要求");
+        }
+        recordCommon.setStatus(ENABLE);
         RecordCommon resource = recordManager.createRecord(recordCommon);
-        return c2sConverter.convert(resource);
+        return recordC2S_Converter.convert(resource);
     }
 
     @GetMapping("/{id}")
@@ -51,12 +57,23 @@ public class RecordController {
         }
 
         RecordCommon recordCommon = recordManager.getRecordByRecordId(recordId);
-        return c2sConverter.convert(recordCommon);
+        return recordC2S_Converter.convert(recordCommon);
     }
 
-    @PutMapping
-    public RecordView updateRecord(@RequestBody RecordView record) {
-        throw new UnsupportedOperationException();
+    @PutMapping("/{id}")
+    public RecordView updateRecord(@PathVariable("id") Long recordId, @RequestBody RecordView record) {
+        if (record == null || recordId <= 0) {
+            throw new InvalidParameterException("The record id must not be empty and positive.");
+        }
+
+        if (record.getUserId() == null || record.getUserId() <= 0) {
+            throw new InvalidParameterException("The user id is empty or invalid.");
+        }
+
+        record.setId(recordId);
+        RecordCommon recordCommon = recordC2S_Converter.reverse().convert(record);
+        RecordCommon result = recordManager.updateRecord(recordCommon);
+        return recordC2S_Converter.convert(result);
     }
 
     private boolean checkRecord(RecordView record) {

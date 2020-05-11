@@ -21,4 +21,11 @@ public interface RecordDao {
      * @return {@link RecordCommon}
      */
     RecordPersistent getRecordByRecordId(Long recordId);
+
+    /**
+     * 更新Record
+     * @param updateRecord {@link RecordPersistent}
+     */
+    void updateRecord(RecordPersistent updateRecord);
+
 }

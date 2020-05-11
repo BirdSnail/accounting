@@ -78,4 +78,52 @@ public class RecordManagerImpl implements RecordManager {
                 .map(record -> p2cConverter.convert(record))
                 .orElseThrow(() -> new ResourceNotFoundException("The record was not found."));
     }
+
+    @Override
+    public RecordCommon updateRecord(RecordCommon recordCommon) {
+        RecordPersistent existsRecord = Optional.ofNullable(recordDao.getRecordByRecordId(recordCommon.getId()))
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("The record id is:[%s] was not found.", recordCommon.getId())));
+
+        if (!recordCommon.getUserId().equals(existsRecord.getUserId())) {
+            throw new InvalidParameterException(
+                    String.format("The record id:[%s] doesn't belong to user id:[%s]",
+                            recordCommon.getId(), recordCommon.getUserId()));
+        }
+
+        RecordPersistent updateRecord = p2cConverter.reverse().convert(recordCommon);
+        assert updateRecord != null;
+        if (updateTagIfNecessary(updateRecord, existsRecord)) {
+            // check tag is invalid
+            List<Long> tagIdList = updateRecord.getTagList()
+                    .stream()
+                    .map(TagPersistent::getId)
+                    .collect(Collectors.toList());
+
+            List<TagPersistent> tagList = tagDao.getTagListByIds(tagIdList);
+            if (tagIdList.isEmpty()) {
+                throw new InvalidParameterException(String.format("The tag list %s is not exists", tagIdList));
+            }
+            tagList.stream()
+                    .filter(tag -> !tag.getUserId().equals(recordCommon.getUserId()))
+                    .findAny()
+                    .ifPresent(tag -> {
+                        throw new InvalidParameterException(
+                                String.format("The related tag id:[%s] doesn't belong to user id:[%s]",
+                                        tag.getId(), recordCommon.getUserId()));
+                    });
+
+            // TODO 两次操作应该具有原子性
+            recordTagMappingDao.deleteRecordTagMappingByRecordId(recordCommon.getId());
+            recordTagMappingDao.batchInsert(recordCommon.getId(), tagList);
+        }
+
+        recordDao.updateRecord(updateRecord);
+        return getRecordByRecordId(recordCommon.getId());
+    }
+
+    private boolean updateTagIfNecessary(RecordPersistent updateRecord, RecordPersistent existsRecord) {
+        return updateRecord.getTagList() != null
+                && !updateRecord.getTagList().equals(existsRecord.getTagList());
+    }
 }

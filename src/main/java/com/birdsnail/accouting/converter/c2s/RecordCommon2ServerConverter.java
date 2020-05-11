@@ -19,12 +19,24 @@ public class RecordCommon2ServerConverter extends Converter<RecordCommon, Record
 
     @Override
     protected RecordView doForward(RecordCommon recordCommon) {
-        throw new UnsupportedOperationException();
+        final RecordView recordView = RecordView.builder()
+                .id(recordCommon.getId())
+                .userId(recordCommon.getUserId())
+                .category(recordCommon.getCategory())
+                .amount(recordCommon.getAmount())
+                .note(recordCommon.getNote())
+                .build();
+
+        if (recordCommon.getTagList() != null) {
+            recordView.setTagList(ImmutableList.copyOf(tagC2SConverter.convertAll(recordCommon.getTagList())));
+        }
+        return recordView;
     }
 
     @Override
     protected RecordCommon doBackward(RecordView recordView) {
-         RecordCommon recordCommon = RecordCommon.builder()
+        RecordCommon recordCommon = RecordCommon.builder()
+                .id(recordView.getId())
                 .userId(recordView.getUserId())
                 .category(recordView.getCategory())
                 .amount(recordView.getAmount())

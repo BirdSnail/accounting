@@ -1,5 +1,6 @@
 package com.birdsnail.accouting.dao.mapper;
 
+import com.birdsnail.accouting.dao.provider.RecordSqlProvider;
 import com.birdsnail.accouting.model.persistent.RecordPersistent;
 import org.apache.ibatis.annotations.*;
 
@@ -42,4 +43,11 @@ public interface RecordMapper {
                     many = @Many(select = "com.birdsnail.accouting.dao.mapper." +
                             "RecordTagMappingMapper.getTagListByRecordId"))})
     RecordPersistent getRecordById(@Param("id") Long recordId);
+
+    /**
+     * 更新Record
+     * @param updateRecord 要更新的Record
+     */
+    @UpdateProvider(type = RecordSqlProvider.class, method = "updateRecord")
+    void updateRecord(RecordPersistent updateRecord);
 }

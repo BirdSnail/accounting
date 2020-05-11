@@ -36,4 +36,10 @@ public class RecordDaoImpl implements RecordDao{
         }
         return null;
     }
+
+    @Override
+    public void updateRecord(RecordPersistent updateRecord) {
+        recordMapper.updateRecord(updateRecord);
+        log.debug("Update record in RecordDaoImpl: {}", updateRecord);
+    }
 }
