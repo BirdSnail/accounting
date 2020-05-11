@@ -3,6 +3,8 @@ package com.birdsnail.accouting.manager;
 import com.birdsnail.accouting.model.common.TagCommon;
 import com.birdsnail.accouting.model.service.TagView;
 
+import java.util.List;
+
 /**
  * @author BirdSnail
  */
@@ -33,4 +35,13 @@ public interface TagManager {
      * @return 更新后的tag
      */
     TagCommon updateTag(TagCommon tagCommon);
+
+    /**
+     * 通过pageNumSize分页查询tag
+     *
+     * @param pageNum num of page
+     * @param pageSize limit size
+     * @return list of {@link TagCommon}
+     */
+    List<TagCommon> getTags(int pageNum, int pageSize);
 }

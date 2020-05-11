@@ -27,7 +27,7 @@ public interface TagDao {
      * 根据description 和 用户id查询 tag.
      *
      * @param description tag 内容
-     * @param userId 用户id
+     * @param userId      用户id
      * @return tag in persistent
      */
     TagPersistent getTagByDescriptionAndUserId(String description, long userId);
@@ -47,4 +47,13 @@ public interface TagDao {
      * @return tag in persistent
      */
     List<TagPersistent> getTagListByIds(List<Long> ids);
+
+    /**
+     * 对tag分页查询
+     *
+     * @param pageNum  page number
+     * @param pageSize limit size
+     * @return {@link TagPersistent}
+     */
+    List<TagPersistent> getTagsByPageNumSize(int pageNum, int pageSize);
 }

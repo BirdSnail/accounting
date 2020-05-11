@@ -52,4 +52,9 @@ public class TagDaoImpl implements TagDao {
     public List<TagPersistent> getTagListByIds(List<Long> ids) {
         return tagMapper.getTagListByIds(ids);
     }
+
+    @Override
+    public List<TagPersistent> getTagsByPageNumSize(int pageNum, int pageSize) {
+        return tagMapper.getTagsByPageNumSize(pageNum, pageSize);
+    }
 }

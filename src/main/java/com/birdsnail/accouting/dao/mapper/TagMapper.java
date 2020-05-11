@@ -30,14 +30,15 @@ public interface TagMapper {
      * @return tag in persistent
      */
     @Select("select id, description, status, user_id, create_time, update_time FROM accounting_tag where id = #{tagId}")
-    @Results({
-            @Result(property = "id", column = "id", id = true),
-            @Result(property = "description", column = "description"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "createTime", column = "create_time"),
-            @Result(property = "updateTime", column = "update_time")
-    })
+    @Results(id = "tagMapping",
+            value = {
+                    @Result(property = "id", column = "id", id = true),
+                    @Result(property = "description", column = "description"),
+                    @Result(property = "status", column = "status"),
+                    @Result(property = "userId", column = "user_id"),
+                    @Result(property = "createTime", column = "create_time"),
+                    @Result(property = "updateTime", column = "update_time")
+            })
     TagPersistent getTagByTagId(long tagId);
 
     /**
@@ -76,12 +77,24 @@ public interface TagMapper {
      * @return list of tag in persistent
      */
     @SelectProvider(type = TagSqlProvider.class, method = "getTagListByIds")
-    @Results(id = "tagMapping",
-            value = {
-                    @Result(column = "id", property = "id"),
-                    @Result(column = "description", property = "description"),
-                    @Result(column = "status", property = "status"),
-                    @Result(column = "user_id", property = "userId"),
-            })
+    @Results(value = {
+            @Result(column = "id", property = "id"),
+            @Result(column = "description", property = "description"),
+            @Result(column = "status", property = "status"),
+            @Result(column = "user_id", property = "userId"),
+    })
     List<TagPersistent> getTagListByIds(@Param("ids") List<Long> ids);
+
+    /**
+     * select * from table limit offset, size
+     * OFFSET = (pageNum-1) * size
+     *
+     * @param pageNum  page num
+     * @param pageSize limit size
+     * @return list of tag in persistent
+     */
+    @Select({"select id, description, status, user_id, create_time, update_time FROM accounting_tag ",
+            "order by create_time"})
+    @ResultMap("tagMapping")
+    List<TagPersistent> getTagsByPageNumSize(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize);
 }

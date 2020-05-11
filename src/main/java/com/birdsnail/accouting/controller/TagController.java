@@ -5,11 +5,14 @@ import com.birdsnail.accouting.manager.TagManager;
 import com.birdsnail.accouting.manager.UserInfoManager;
 import com.birdsnail.accouting.model.common.TagCommon;
 import com.birdsnail.accouting.model.service.TagView;
+import com.github.pagehelper.PageInfo;
+import com.google.common.collect.ImmutableList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.InvalidParameterException;
+import java.util.List;
 
 /**
  * 标签的控制访问层
@@ -89,4 +92,13 @@ public class TagController {
         TagCommon resource = tagManager.updateTag(tagCommon);
         return tagCommon2ServerConverter.convert(resource);
     }
+
+    @GetMapping
+    public PageInfo<TagView> getTags(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+        // TODO 查询只能限定为当前用户下的数据
+        List<TagView> tagViews = ImmutableList.copyOf(
+                tagCommon2ServerConverter.convertAll(tagManager.getTags(pageNum, pageSize)));
+        return new PageInfo<>(tagViews);
+    }
+
 }

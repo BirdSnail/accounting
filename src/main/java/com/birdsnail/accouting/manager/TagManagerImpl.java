@@ -5,10 +5,13 @@ import com.birdsnail.accouting.dao.TagDao;
 import com.birdsnail.accouting.exception.ResourceNotFoundException;
 import com.birdsnail.accouting.model.common.TagCommon;
 import com.birdsnail.accouting.model.persistent.TagPersistent;
+import com.google.common.collect.ImmutableList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -73,5 +76,12 @@ public class TagManagerImpl implements TagManager {
         tagDao.updateTag(updateTag);
         log.debug("after update tag:{}", updateTag);
         return tagPersistent2CommonConvert.convert(updateTag);
+    }
+
+    @Override
+    public List<TagCommon> getTags(int pageNum, int pageSize) {
+        List<TagPersistent> tagPersistentList = Optional.ofNullable(tagDao.getTagsByPageNumSize(pageNum, pageSize))
+                .orElse(Collections.emptyList());
+        return ImmutableList.copyOf(tagPersistent2CommonConvert.convertAll(tagPersistentList));
     }
 }
