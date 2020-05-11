@@ -6,3 +6,5 @@ spring:
 logging:
   level:
     com.birdsnail.accouting: debug
+pagehelper:
+  support-methods-arguments: true
