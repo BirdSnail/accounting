@@ -83,5 +83,5 @@ public interface TagMapper {
                     @Result(column = "status", property = "status"),
                     @Result(column = "user_id", property = "userId"),
             })
-    List<TagPersistent> getTagListByIds(List<Long> ids);
+    List<TagPersistent> getTagListByIds(@Param("ids") List<Long> ids);
 }

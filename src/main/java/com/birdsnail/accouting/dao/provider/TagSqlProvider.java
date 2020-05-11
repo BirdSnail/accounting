@@ -23,8 +23,9 @@ public class TagSqlProvider {
                 if (tagPersistent.getDescription() != null) {
                     SET("description = #{description}");
                 }
-
-                SET("status = #{status}");
+                if (tagPersistent.getStatus() != null) {
+                    SET("status = #{status}");
+                }
                 WHERE("id = #{id}");
             }
         }.toString();
