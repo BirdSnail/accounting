@@ -64,7 +64,7 @@ public class TagManagerImpl implements TagManager {
                 ));
         log.debug("before update tag in persistent:{}", tagInDb);
 
-        if (tagCommon.getUserId() != tagInDb.getUserId()) {
+        if (!tagCommon.getUserId().equals(tagInDb.getUserId())) {
             throw new InvalidParameterException(
                     String.format("The tag id [%s] doesn't belong to user id: %s",
                             tagCommon.getId(), tagInDb.getUserId()));
