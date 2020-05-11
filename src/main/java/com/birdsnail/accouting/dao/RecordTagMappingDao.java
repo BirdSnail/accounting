@@ -17,4 +17,10 @@ public interface RecordTagMappingDao {
      * @param tagPersistentList list of tag in persistent
      */
     void batchInsert(Long recordId, List<TagPersistent> tagPersistentList);
+
+    /**
+     * 删除指定的recordId记录
+     * @param recordId record id
+     */
+    void deleteRecordTagMappingByRecordId(Long recordId);
 }

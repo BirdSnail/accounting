@@ -50,6 +50,7 @@ public class ShiroConfig {
         shiroFilterDefinitionMap.put("/v1.0/session", "anon");
         shiroFilterDefinitionMap.put("/v1.0/users/**::POST", "anon");
         shiroFilterDefinitionMap.put("/v1.0/tags/**", "anon");
+        shiroFilterDefinitionMap.put("/v1.0/records/**", "anon");
         shiroFilterDefinitionMap.put("/v1.0/**", "authc");
         shiroFilterFactory.setFilterChainDefinitionMap(shiroFilterDefinitionMap);
 

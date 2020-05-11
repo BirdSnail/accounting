@@ -38,4 +38,10 @@ public class RecordTagMappingDaoImpl implements RecordTagMappingDao {
         int rowsCount = recordTagMappingMapper.batchInsert(recordTagMappingList);
         log.debug("batch insert rows count:{}", rowsCount);
     }
+
+    @Override
+    public void deleteRecordTagMappingByRecordId(Long recordId) {
+        int rows = recordTagMappingMapper.deleteRecordTagMappingByRecordId(recordId);
+        log.debug("The affect rows for deleting: {}", rows);
+    }
 }

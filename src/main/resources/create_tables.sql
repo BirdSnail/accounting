@@ -31,3 +31,18 @@ create table accounting_record
 ) engine = InnoDB
   auto_increment = 1
   default charset = utf8;
+
+# record tag中间表
+create table accounting_record_tag_mapping
+(
+    id          bigint(20) unsigned not null auto_increment,
+    record_id   bigint(20) unsigned not null,
+    tag_id      bigint(20) unsigned not null,
+    status      tinyint(1) unsigned not null comment '0 -> disable, 1 -> enable',
+    create_time datetime            not null default CURRENT_TIMESTAMP,
+    update_time datetime                     default null on update CURRENT_TIMESTAMP,
+    primary key pk_id (id),
+    foreign key (record_id) references accounting_record (id)
+) engine = InnoDB
+  auto_increment = 1
+  default charset = utf8;
